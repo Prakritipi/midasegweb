@@ -12,7 +12,6 @@ import {
 import { Button, Table, Flex, Tooltip, Input, Menu } from 'antd'; // Removed unused imports
 import type { MenuProps } from 'antd'; // Keep only necessary types
 import { Link } from 'react-router-dom';
-// import AnotherUser from './anotheruser'; // This import seems unused in the provided snippet
 
 const text = <span>Audit Logs</span>;
 
