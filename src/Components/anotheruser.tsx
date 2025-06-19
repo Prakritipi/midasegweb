@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
     UserOutlined,
     UsergroupAddOutlined,
@@ -9,14 +9,14 @@ import {
     SearchOutlined,
     PlusCircleOutlined
 } from '@ant-design/icons';
-import { Button, Table, Flex, Tooltip, Input, Menu } from 'antd'; // Removed unused imports
-import type { MenuProps } from 'antd'; // Keep only necessary types
-import { Link } from 'react-router-dom';
-// import AnotherUser from './anotheruser'; // This import seems unused in the provided snippet
+import { Space, ConfigProvider, Button, Table, Flex, Tag, Dropdown, Segmented, Tooltip } from 'antd';
+import type { TableColumnsType, MenuProps, TooltipProps } from 'antd';
+import { Input, Menu } from 'antd';
+// import { Link } from 'react-router-dom';
 
 const text = <span>Audit Logs</span>;
 
-const Usersetupuser = () => {
+const AnotherUser = () => {
     const [showUserForm, setShowUserForm] = useState(false); // Controls visibility of the combined user form modal
 
     // Combined state for all user details
@@ -29,30 +29,29 @@ const Usersetupuser = () => {
         department: ''
     });
 
-    // State for the table data
     const [data, setData] = useState([
         {
             key: 1,
             sn: 1,
-            name: "AMRENDRA KUMAR MAHATO ",
-            Username: "amrendram",
-            Email: "amrendram@org133.com",
+            name: "abhiranjan adhikari ",
+            Username: "abhiranjan",
+            Email: "abhiranjan@ORG133.com",
             Action: '...'
         },
         {
             key: 2,
             sn: 2,
-            name: "BIBEK POKHAREL",
-            Username: "bibekp",
-            Email: "bibekp@org133.com",
+            name: "RAUNAK NIROULA ",
+            Username: "raunakn",
+            Email: "raunak@gmail.com",
             Action: '...'
         },
         {
             key: 3,
             sn: 3,
-            name: "MANOJ LAMICHHANE ",
-            Username: "nmcthmanoj",
-            Email: "manoj@gmail.com",
+            name: "SANDEEP ACHARYA ",
+            Username: "sandeepa",
+            Email: "sandeepa@org133.com",
             Action: '...'
         },
         {
@@ -63,57 +62,9 @@ const Usersetupuser = () => {
             Email: "afeena@gmail.com",
             Action: '...'
         },
-        {
-            key: 5,
-            sn: 5,
-            name: "abhiranjan adhikari ",
-            Username: "abhiranjan",
-            Email: "abhiranjan@ORG133.com",
-            Action: '...'
-        },
-        {
-            key: 6,
-            sn: 6,
-            name: "RAUNAK NIROULA ",
-            Username: "raunakn",
-            Email: "raunak@gmail.com",
-            Action: '...'
-        },
-        {
-            key: 7,
-            sn: 7,
-            name: "SANDEEP ACHARYA ",
-            Username: "sandeepa",
-            Email: "sandeepa@org133.com",
-            Action: '...'
-        },
-        {
-            key: 8,
-            sn: 8,
-            name: "ANU SHIWA",
-            Username: "anuk",
-            Email: "anuk@org133.com",
-            Action: '...'
-        },
-        {
-            key: 9,
-            sn: 9,
-            name: "MAHESH GAUTAM ",
-            Username: "maheshm",
-            Email: "maheshm@org133.com",
-            Action: '...'
-        },
-        {
-            key: 10,
-            sn: 10,
-            name: "DR RAM KRISHNA SINGH ",
-            Username: "ramkrishna",
-            Email: "ramkrishna583.rks@gmail.com",
-            Action: '...'
-        },
     ]);
 
-    // This is the missing handleChange function
+    // Handle all form input changes (combined basic and additional)
     const handleChange = (e) => {
         const { name, value } = e.target;
         setUserDetails(prev => ({
@@ -186,14 +137,14 @@ const Usersetupuser = () => {
             key: 'sub1',
             icon: <UsergroupAddOutlined style={{ fontSize: '16px', color: '#0ABAB5' }} />,
             children: [
-                { key: '3', label: (<Link to="./anotheruser">User</Link>), },
+                { key: '3', label: 'User', },
                 { key: '4', label: 'Role' },
             ],
         },
         {
             key: 'sub2',
             icon: <SettingOutlined style={{ fontSize: '16px', color: '#0ABAB5' }} />,
-            label: '', // Label is empty, so the icon will be the primary visual
+            label: '',
             children: [
                 { key: '5', label: 'Organization' },
                 { key: '6', label: 'Sub Organization' },
@@ -206,7 +157,7 @@ const Usersetupuser = () => {
         },
         {
             key: 'sub3',
-            icon: <Tooltip placement="rightTop" title={text}><AuditOutlined style={{ fontSize: '16px', color: '#0ABAB5' }} /></Tooltip>,
+            icon: <div><Tooltip placement="rightTop" title={text}><AuditOutlined style={{ fontSize: '16px', color: '#0ABAB5' }} /></Tooltip></div>,
             children: [],
         },
     ];
@@ -418,4 +369,4 @@ const Usersetupuser = () => {
     );
 };
 
-export default Usersetupuser;
+export default AnotherUser;
