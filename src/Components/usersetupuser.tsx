@@ -102,14 +102,7 @@ const Usersetupuser = () => {
             Email: "maheshm@org133.com",
             Action: '...'
         },
-        {
-            key: 10,
-            sn: 10,
-            name: "DR RAM KRISHNA SINGH ",
-            Username: "ramkrishna",
-            Email: "ramkrishna583.rks@gmail.com",
-            Action: '...'
-        },
+        
     ]);
 
     // This is the missing handleChange function
