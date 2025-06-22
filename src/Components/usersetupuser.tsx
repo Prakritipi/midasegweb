@@ -13,6 +13,7 @@ import { Button, Table, Flex, Tooltip, Input, Menu } from 'antd'; // Removed unu
 import type { MenuProps } from 'antd'; // Keep only necessary types
 import { Link } from 'react-router-dom';
 
+
 const text = <span>Audit Logs</span>;
 
 const Usersetupuser = () => {
@@ -178,8 +179,8 @@ const Usersetupuser = () => {
             key: 'sub1',
             icon: <UsergroupAddOutlined style={{ fontSize: '16px', color: '#0ABAB5' }} />,
             children: [
-                { key: '3', label: (<Link to="./anotheruser">User</Link>), },
-                { key: '4', label: 'Role' },
+                { key: '3', label: (<Link to="usersetupuser">User</Link>), },
+                { key: '4', label: (<Link to="userroless">Role</Link>) },
             ],
         },
         {
@@ -275,11 +276,14 @@ const Usersetupuser = () => {
             </div>
 
             <div className='mr-5 ml-20 mt-4 rounded-lg border border-gray-200 shadow-sm overflow-hidden'>
+                {/* <div className='mr-5 ml-20 mt-4 overflow-hidden'> */}
                 <Table className='text-12-medium w-full'
                     dataSource={data}
                     columns={columns}
                 />
+                   {/* <NewTask/> */}
             </div>
+            
 
             {/* Combined User Details Form Modal */}
             {showUserForm && ( // This state now controls the combined modal
@@ -411,3 +415,6 @@ const Usersetupuser = () => {
 };
 
 export default Usersetupuser;
+
+
+ 
