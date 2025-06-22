@@ -102,7 +102,7 @@ const Userroless = () => {
                         <div className='nav-bar'>
                             <div className='w-full flex flex-row justify-between left-0 p-0 m-0'>
                                 <div className='logo items-start'>
-                                    <img src='../../MHSDark.png' alt='MIDAS Logo' className="w-[70px] mt-0 pt-0 left-0" />
+                                    <img src='../../../MHSDark.png' alt='MIDAS Logo' className="w-[70px] mt-0 pt-0 left-0" />
                                 </div>
 
                                 <div className="relative w-96">
