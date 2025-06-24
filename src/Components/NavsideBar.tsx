@@ -21,8 +21,8 @@ const NavsideBar = () => {
             key: 'sub1',
             icon: <UsergroupAddOutlined style={{ fontSize: '16px', color: '#0ABAB5' }} />,
             children: [
-                { key: '3', label: (<Link to="usersetupuser">User</Link>) },
-                { key: '4', label: (<Link to="userroless">Role</Link>) },
+                { key: '3', label: (<Link to="../usersetupuser">User</Link>) },
+                { key: '4', label: (<Link to="../userroless">Role</Link>) },
             ],
         },
         {
@@ -54,7 +54,7 @@ const NavsideBar = () => {
                 <div className='nav-bar'>
                     <div className='w-full flex flex-row justify-between left-0 p-0 m-0'>
                         <div className='logo items-start'>
-                            <img src='../../MHSDark.png' alt='MIDAS Logo' className="w-[70px] mt-0 pt-0 left-0" />
+                            <img src='../../../MHSDark.png' alt='MIDAS Logo' className="w-[70px] mt-0 pt-0 left-0" />
                         </div>
 
                         <div className="relative w-96">
