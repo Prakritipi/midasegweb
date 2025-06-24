@@ -82,7 +82,7 @@ const NavsideBar = () => {
             </div>
 
             {/* Breadcrumb Navigation */}
-            <div className='flex flex-row items-center space-x-1 font-semibold mt-[65px] ml-[70px]'>
+            {/* <div className='flex flex-row items-center space-x-1 font-semibold mt-[65px] ml-[70px]'>
                 <HomeOutlined className='text-md' />
                 <RightOutlined className=' text-gray-400 text-xs ' />
                 <span className=' text-gray-400 text-xs '>User Management</span>
@@ -90,7 +90,7 @@ const NavsideBar = () => {
                 <span className=' text-gray-400 text-xs '>User Setup</span>
                 <RightOutlined className='text-xs text-gray-400 ' />
                 <span className=' text-gray-400 text-xs '>User</span>
-            </div>
+            </div> */}
         </div>
         <div className='fixed bg-white top-14 left-0 h-screen p-0 m-0 z-50 border-r-2 border-gray-100'>
                 <Menu style={{ width: 50 }} mode="vertical" items={items} expandIcon={false} />
