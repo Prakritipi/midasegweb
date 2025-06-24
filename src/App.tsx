@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './Components/Dashboard';
 import Login from './Components/login';
 import Usersetupuser from 'Components/usersetupuser';
-import AnotherUser from 'Components/anotheruser';
 import Userroless from 'Components/userroless';
 function App(): JSX.Element {
   return (

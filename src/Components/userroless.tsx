@@ -14,6 +14,7 @@ import type { TableColumnsType, MenuProps, TooltipProps } from 'antd';
 import { Input, Menu } from 'antd';
 import { Link } from 'react-router-dom';
 import { NewTask } from './NewTask';
+import NavsideBar from './NavsideBar'
 
 
 const text = <span> Audit Logs</span>
@@ -96,8 +97,9 @@ const Userroless = () => {
 
     return (
             <>
-                <div>
-                    {/* Top Navbar */}
+                {<NavsideBar/>}
+                {/* <div>
+                    Top Navbar
                     <div className='fixed bg-white top-0 left-0 w-full m-0 p-2 z-50 border-b-2 border-gray-300'>
                         <div className='nav-bar'>
                             <div className='w-full flex flex-row justify-between left-0 p-0 m-0'>
@@ -123,14 +125,14 @@ const Userroless = () => {
                         </div>
                     </div>
 
-                    {/* Sidebar Icons */}
+                    Sidebar Icons
                     <div className='fixed bg-white top-14 left-0 h-screen p-0 m-0 z-50 border-r-2 border-gray-100'>
                         <div className='flex flex-col items-start space-y-1'>
                             <Menu style={{ width: 50 }} mode="vertical" items={items} expandIcon={false} />
                         </div>
                     </div>
 
-                    {/* Breadcrumb Navigation */}
+                    Breadcrumb Navigation
                     <div className='flex flex-row items-center space-x-1 font-semibold mt-[65px] ml-[70px]'>
                         <HomeOutlined className='text-md' />
                         <RightOutlined className=' text-gray-400 text-xs ' />
@@ -140,7 +142,7 @@ const Userroless = () => {
                         <RightOutlined className='text-xs text-gray-400 ' />
                         <span className=' text-gray-400 text-xs '>Role</span>
                     </div>
-                </div>
+                </div> */}
 
                 <div className='w-full flex flex-row justify-between'>
                     <div className=' ml-20 mt-4 p-0 h-14'>
