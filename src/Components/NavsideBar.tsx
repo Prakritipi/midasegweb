@@ -21,8 +21,8 @@ const NavsideBar = () => {
             key: 'sub1',
             icon: <UsergroupAddOutlined style={{ fontSize: '16px', color: '#0ABAB5' }} />,
             children: [
-                { key: '3', label: (<Link to="/usersetupuser">User</Link>) },
-                { key: '4', label: (<Link to="/userroless">Role</Link>) },
+                { key: '3', label: (<Link to="usersetupuser">User</Link>) },
+                { key: '4', label: (<Link to="userroless">Role</Link>) },
             ],
         },
         {
