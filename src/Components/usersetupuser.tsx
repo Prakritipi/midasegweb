@@ -9,8 +9,8 @@ import {
     SearchOutlined,
     PlusCircleOutlined
 } from '@ant-design/icons';
-import { Button, Table, Flex, Tooltip, Input, Menu } from 'antd'; // Removed unused imports
-import type { MenuProps } from 'antd'; // Keep only necessary types
+import { Button, Table, Flex, Tooltip, Input, Menu } from 'antd';
+import type { MenuProps } from 'antd'; 
 import { Link } from 'react-router-dom';
 import NavsideBar from './NavsideBar';
 
@@ -19,9 +19,8 @@ import NavsideBar from './NavsideBar';
 const text = <span>Audit Logs</span>;
 
 const Usersetupuser = () => {
-    const [showUserForm, setShowUserForm] = useState(false); // Controls visibility of the combined user form modal
+    const [showUserForm, setShowUserForm] = useState(false); 
 
-    // Combined state for all user details
     const [userDetails, setUserDetails] = useState({
         name: '',
         username: '',
@@ -31,7 +30,6 @@ const Usersetupuser = () => {
         department: ''
     });
 
-    // State for the table data
     const [data, setData] = useState([
         {
             key: 1,
@@ -108,7 +106,6 @@ const Usersetupuser = () => {
         
     ]);
 
-    // This is the missing handleChange function
     const handleChange = (e) => {
         const { name, value } = e.target;
         setUserDetails(prev => ({
@@ -117,15 +114,12 @@ const Usersetupuser = () => {
         }));
     };
 
-    // Handle adding a new user (combines basic and additional submission logic)
     const handleAddUser = () => {
-        // Validate required basic fields
         if (!userDetails.name || !userDetails.username || !userDetails.id) {
             alert('Please fill in all required basic user details (Full Name, Username, ID Number).');
             return;
         }
 
-        // Validate email if it's considered required for any user
         if (!userDetails.email) {
             alert('Please fill in the Email ID.');
             return;
@@ -136,13 +130,12 @@ const Usersetupuser = () => {
             sn: data.length + 1,
             name: userDetails.name,
             Username: userDetails.username,
-            Email: userDetails.email, // Now directly from the combined state
-            Action: '...'
+            Email: userDetails.email, 
         };
 
-        setData(prev => [...prev, newUser]); // Add the new user to the table
-        setShowUserForm(false); // Close the modal
-        setUserDetails({ name: '', username: '', id: '', email: '', phone: '', department: '' }); // Reset form fields
+        setData(prev => [...prev, newUser]); 
+        setShowUserForm(false); 
+        setUserDetails({ name: '', username: '', id: '', email: '', phone: '', department: '' }); 
         alert('New user added successfully and added to table!');
     };
 
@@ -181,14 +174,14 @@ const Usersetupuser = () => {
             key: 'sub1',
             icon: <UsergroupAddOutlined style={{ fontSize: '16px', color: '#0ABAB5' }} />,
             children: [
-                { key: '3', label: (<Link to="usersetupuser">User</Link>), },
-                { key: '4', label: (<Link to="userroless">Role</Link>) },
+                { key: '3', label: (<Link to="./usersetupuser">User</Link>), },
+                { key: '4', label: (<Link to="./userroless">Role</Link>) },
             ],
         },
         {
             key: 'sub2',
             icon: <SettingOutlined style={{ fontSize: '16px', color: '#0ABAB5' }} />,
-            label: '', // Label is empty, so the icon will be the primary visual
+            label: '', 
             children: [
                 { key: '5', label: 'Organization' },
                 { key: '6', label: 'Sub Organization' },
@@ -204,6 +197,12 @@ const Usersetupuser = () => {
             icon: <Tooltip placement="rightTop" title={text}><AuditOutlined style={{ fontSize: '16px', color: '#0ABAB5' }} /></Tooltip>,
             children: [],
         },
+        {
+            key: 'sub4',
+            icon: <UsergroupAddOutlined style={{ fontSize: '16px', color: '#0ABAB5' }} />,
+            children: [],
+            label: (<Link to= "./ApiCall">User</Link>),
+        },
     ];
 
     const onClick: MenuProps['onClick'] = (e) => {
@@ -213,42 +212,9 @@ const Usersetupuser = () => {
     return (
         <>
             {<NavsideBar/>}
-            {/* <div> */}
-                {/* Top Navbar */}
-                {/* <div className='fixed bg-white top-0 left-0 w-full m-0 p-2 z-50 border-b-2 border-gray-300'>
-                    <div className='nav-bar'>
-                        <div className='w-full flex flex-row justify-between left-0 p-0 m-0'>
-                            <div className='logo items-start'>
-                                <img src='../../MHSDark.png' alt='MIDAS Logo' className="w-[70px] mt-0 pt-0 left-0" />
-                            </div>
-
-                            <div className="relative w-96">
-                                <span className="absolute inset-y-0 left-2 flex items-center text-gray-400">
-                                    <SearchOutlined />
-                                </span>
-                                <input
-                                    type="text"
-                                    placeholder="Search for modules, sub-modules, setting, etc (ctrl+e)"
-                                    className="w-full pl-8 py-2 text-xs"
-                                />
-                            </div>
-
-                            <button className='flex text-sm items-center text-black font-normal border border-black rounded-md mr-0 m-1 pr-6'>
-                                <UserOutlined className='mr-1 px-2' /> Superadmin
-                            </button>
-                        </div>
-                    </div>
-                </div> */}
-
-                {/* Sidebar Icons */}
-                {/* <div className='fixed bg-white top-14 left-0 h-screen p-0 m-0 z-50 border-r-2 border-gray-100'>
-                    <div className='flex flex-col items-start space-y-1'>
-                        <Menu style={{ width: 50 }} mode="vertical" items={items} expandIcon={false} />
-                    </div>
-                </div> */}
 
                 {/* Breadcrumb Navigation */}
-                <div className='flex flex-row items-center space-x-1 font-semibold mt-[65px] ml-[70px]'>
+                <div className='flex flex-row items-center space-x-1 font-semibold mt-2 ml-[70px]'>
                     <HomeOutlined className='text-md' />
                     <RightOutlined className=' text-gray-400 text-xs ' />
                     <span className=' text-gray-400 text-xs '>User Management</span>
@@ -257,7 +223,6 @@ const Usersetupuser = () => {
                     <RightOutlined className='text-xs text-gray-400 ' />
                     <span className=' text-gray-400 text-xs '>User</span>
                 </div>
-            {/* </div>  */}
 
             <div className='w-full flex flex-row justify-between'>
                 <div className=' ml-20 mt-4 p-0 h-14'>
@@ -279,7 +244,6 @@ const Usersetupuser = () => {
             </div>
 
             <div className='mr-5 ml-20 mt-4 rounded-lg border border-gray-200 shadow-sm overflow-hidden'>
-                {/* <div className='mr-5 ml-20 mt-4 overflow-hidden'> */}
                 <Table className='text-12-medium w-full'
                     dataSource={data}
                     columns={columns}
@@ -287,9 +251,8 @@ const Usersetupuser = () => {
                    {/* <NewTask/> */}
             </div>
             
-
-            {/* Combined User Details Form Modal */}
-            {showUserForm && ( // This state now controls the combined modal
+            {/* Modal */}
+            {showUserForm && ( 
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                     <div className="bg-white p-8 rounded-lg shadow-xl max-w-md w-full mx-4">
                         <h3 className="text-xl font-semibold mb-6 text-gray-800">New User Details</h3>

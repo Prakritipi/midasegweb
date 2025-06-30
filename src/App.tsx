@@ -1,20 +1,28 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Dashboard from './Components/Dashboard';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from './Components/login';
-import Usersetupuser from 'Components/usersetupuser';
-import Userroless from 'Components/userroless';
-function App(): JSX.Element {
+import PageLayout from './Components/PageLayout';
+import Usersetupuser from './Components/usersetupuser';
+import Userroless from './Components/userroless';
+import ApiCall from './Components/ApiCall';
+import Apicruduse from './Components/Apicruduse';
+import Dashboard from './Components/Dashboard';
+
+function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/dashboard/usersetupuser" element={<Usersetupuser />} />
-        <Route path="/dashboard/usersetupuser/usersetupuser" element={<Usersetupuser />} />
-        <Route path="/dashboard/usersetupuser/Userroless" element={<Userroless />} />
-        <Route path="/dashboard/Userroless" element={<Userroless />} />
-        <Route path="/dashboard/Userroless/usersetupuser" element={<Usersetupuser />} />
-        <Route path="/dashboard/userroless/usersetupuser/userroless" element={<Userroless />} />
+
+        {/* All dashboard-related routes go here */}
+        <Route path="/dashboard" element={<PageLayout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="usersetupuser" element={<Usersetupuser />} />
+          <Route path="userroless" element={<Userroless />} />
+          <Route path="usersetupuser/apiCall" element={<ApiCall />} />
+          <Route path="apicruduse" element={<Apicruduse />} />
+          <Route path="apicall" element={<ApiCall />} />
+        </Route>
+
         <Route path="*" element={<div>404 Not Found</div>} />
       </Routes>
     </Router>
