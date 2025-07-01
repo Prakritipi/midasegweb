@@ -1,15 +1,16 @@
 import React from "react";
 import NavsideBar from "./NavsideBar";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 const PageLayout = () => {
+  const location = useLocation();
+  const isDashboardRoot = location.pathname === "/dashboard";
+  
   return (
     <div className="min-h-screen">
-      {/* Fixed navbar and sidebar */}
-      <NavsideBar />
+      {!isDashboardRoot && <NavsideBar />}
 
-      {/* Page content shifted to avoid overlapping */}
-      <div className="pt-14 pl-[50px] p-4">
+      <div className={`p-4 ${!isDashboardRoot ? 'pt-14 pl-[50px]' : ''}`}>
         <Outlet />
       </div>
     </div>
