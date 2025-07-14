@@ -1,11 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from './Components/login';
-import PageLayout from './Components/PageLayout';
-import Usersetupuser from './Components/usersetupuser';
-import Userroless from './Components/userroless';
-import ApiCall from './Components/ApiCall';
-import Apicruduse from './Components/Apicruduse';
+import Login from './login';
+import PageLayout from './Components/UM_usersetup/PageLayout';
+import Usersetupuser from './Components/UM_usersetup/usersetupuser';
+import Userroless from './Components/UM_usersetup/userroless';
+import ApiCall from './Components/UM_usersetup/ApiCall';
+import Apicruduse from './Components/UM_usersetup/Apicruduse';
 import Dashboard from './Components/Dashboard';
+import PropsCallback from './Components/UM_setup/PropsCallback';
+import AltLayout from './Components/UM_setup/AltLayout'; // New layout
 
 function App() {
   return (
@@ -13,7 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
 
-        {/* All dashboard-related routes go here */}
+        {/* Default dashboard with PageLayout */}
         <Route path="/dashboard" element={<PageLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="usersetupuser" element={<Usersetupuser />} />
@@ -21,6 +23,12 @@ function App() {
           <Route path="usersetupuser/apiCall" element={<ApiCall />} />
           <Route path="apicruduse" element={<Apicruduse />} />
           <Route path="apicall" element={<ApiCall />} />
+        </Route>
+
+      
+        <Route path="/dashboard/propscallback" element={<AltLayout />}>
+          <Route index element={<PropsCallback />} />
+          <Route path="propscallback" element={<PropsCallback />} />
         </Route>
 
         <Route path="*" element={<div>404 Not Found</div>} />

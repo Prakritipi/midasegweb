@@ -1,6 +1,6 @@
-import { Table, Popconfirm, message, Form, Input, Button } from "antd";
+import { Table, Popconfirm, message, Form, Input, Button} from "antd";
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import React from 'react';
 
 export const NewTask = () => {
@@ -93,7 +93,7 @@ export const NewTask = () => {
     ];
 
     return (
-        <div className="m-4">
+        <div className="m-1">
             <h2>New Task</h2>
             <Form form={form} layout="vertical">
                 <div className="flex gap-4 m-2">
@@ -124,7 +124,7 @@ export const NewTask = () => {
                         </Form.Item>
                     </div>
                     <div className="flex items-center">
-                        <Button type="primary" onClick={onSubmit}>
+                        <Button className='bg-cyan-500 text-white hover:bg-cyan-600' onClick={onSubmit}>
                             {editMode ? "Update" : "Add"}
                         </Button>
                         {editMode && (

@@ -22,6 +22,7 @@ const NavsideBar = () => {
     const items = [
         {
             key: 'sub1',
+            label: 'User Setup',
             icon: <UsergroupAddOutlined style={{ fontSize: '16px', color: '#0ABAB5' }} />,
             children: [
                 { key: '3', label: (<Link to="/dashboard/usersetupuser">User</Link>) },
@@ -31,7 +32,7 @@ const NavsideBar = () => {
         {
             key: 'sub2',
             icon: <SettingOutlined style={{ fontSize: '16px', color: '#0ABAB5' }} />,
-            label: '',
+            label: 'Organization Setup',
             children: [
                 { key: '5', label: 'Organization' },
                 { key: '6', label: 'Sub Organization' },
@@ -45,12 +46,13 @@ const NavsideBar = () => {
         {
             key: 'sub3',
             icon: <Tooltip placement="rightTop" title={text}><AuditOutlined style={{ fontSize: '16px', color: '#0ABAB5' }} /></Tooltip>,
+            label: 'Audit Logs',
             children: [],
         },
         {
             key: 'sub4',
-            icon:<Link to="/dashboard/usersetupuser/apiCall"><ApiOutlined style={{ fontSize: '16px', color: '#0ABAB5' }} /></Link>,
-            label: null,
+            icon: <ApiOutlined style={{ fontSize: '16px', color: '#0ABAB5' }} />,
+            label: 'API Examples',
             children: [
                 { key: '1', label: (<Link to="/dashboard/apicruduse">ApiCrudUse</Link>) },
                 { key: '2', label: (<Link to="/dashboard/apicall">ApiCall</Link>) },
@@ -67,7 +69,14 @@ const NavsideBar = () => {
                     <div className='nav-bar'>
                         <div className='w-full flex flex-row justify-between left-0 p-0 m-0'>
                             <div className='logo items-start'>
-                                <img src='../../../MHSDark.png' alt='MIDAS Logo' className="w-[70px] mt-0 pt-0 left-0" />
+                                <Link to="/dashboard">
+                                    <img
+                                        src="../../../MHSDark.png"
+                                        alt="MIDAS Logo"
+                                        className="w-[70px] mt-0 pt-0 left-0 cursor-pointer"
+                                    />
+                                </Link>
+
                             </div>
 
                             <div className="relative w-96">

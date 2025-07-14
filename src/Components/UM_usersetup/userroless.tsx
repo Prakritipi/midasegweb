@@ -27,7 +27,7 @@ const Userroless = () => {
             name: "",
             Username: "",
             Email: "",
-            Action: ''
+            Action: ""
         },
     ]);
 
@@ -59,41 +59,41 @@ const Userroless = () => {
         },
     ];
 
-    type MenuItem = Required<MenuProps>['items'][number];
+    // type MenuItem = Required<MenuProps>['items'][number];
 
-    const items: MenuItem[] = [
-        {
-            key: 'sub1',
-            icon: <UsergroupAddOutlined style={{ fontSize: '16px', color: '#0ABAB5' }} />,
-            children: [
-                { key: '3', label: (<Link to="./usersetupuser">User</Link>), },
-                { key: '4', label: (<Link to="./userroless">Role</Link>) },
-            ],
-        },
-        {
-            key: 'sub2',
-            icon: <SettingOutlined style={{ fontSize: '16px', color: '#0ABAB5' }} />,
-            label: '', // Label is empty, so the icon will be the primary visual
-            children: [
-                { key: '5', label: 'Organization' },
-                { key: '6', label: 'Sub Organization' },
-                { key: '11', label: 'Department' },
-                { key: '12', label: 'Salutation' },
-                { key: '11', label: 'Designation' },
-                { key: '12', label: 'Position' },
-                { key: '12', label: 'Employee' },
-            ],
-        },
-        {
-            key: 'sub3',
-            icon: <Tooltip placement="rightTop" title={text}><AuditOutlined style={{ fontSize: '16px', color: '#0ABAB5' }} /></Tooltip>,
-            children: [],
-        },
-    ];
+    // const items: MenuItem[] = [
+    //     {
+    //         key: 'sub1',
+    //         icon: <UsergroupAddOutlined style={{ fontSize: '16px', color: '#0ABAB5' }} />,
+    //         children: [
+    //             { key: '3', label: (<Link to="./usersetupuser">User</Link>), },
+    //             { key: '4', label: (<Link to="./userroless">Role</Link>) },
+    //         ],
+    //     },
+    //     {
+    //         key: 'sub2',
+    //         icon: <SettingOutlined style={{ fontSize: '16px', color: '#0ABAB5' }} />,
+    //         label: '', // Label is empty, so the icon will be the primary visual
+    //         children: [
+    //             { key: '5', label: 'Organization' },
+    //             { key: '6', label: 'Sub Organization' },
+    //             { key: '11', label: 'Department' },
+    //             { key: '12', label: 'Salutation' },
+    //             { key: '11', label: 'Designation' },
+    //             { key: '12', label: 'Position' },
+    //             { key: '12', label: 'Employee' },
+    //         ],
+    //     },
+    //     {
+    //         key: 'sub3',
+    //         icon: <Tooltip placement="rightTop" title={text}><AuditOutlined style={{ fontSize: '16px', color: '#0ABAB5' }} /></Tooltip>,
+    //         children: [],
+    //     },
+    // ];
 
-    const onClick: MenuProps['onClick'] = (e) => {
-        console.log('click', e);
-    };
+    // const onClick: MenuProps['onClick'] = (e) => {
+    //     console.log('click', e);
+    // };
 
     return (
             <>
@@ -134,7 +134,7 @@ const Userroless = () => {
                  </div> */}
 
                     {/* Breadcrumb Navigation */}
-                    <div className='flex flex-row items-center space-x-1 font-semibold mt-[65px] ml-[70px]'>
+                    <div className='flex flex-row items-center space-x-1 font-semibold mt-4 mb-3 ml-9'>
                         <HomeOutlined className='text-md' />
                         <RightOutlined className=' text-gray-400 text-xs ' />
                         <span className=' text-gray-400 text-xs '>User Management</span>
@@ -145,7 +145,7 @@ const Userroless = () => {
                     </div>
 
                 <div className='w-full flex flex-row justify-between'>
-                    <div className=' ml-20 mt-4 p-0 h-14'>
+                    <div className=' ml-10 mt-2 p-0 h-14'>
                         <div className='col-span-2 items-end '>
                             <Input placeholder="Search table" suffix={<Button className="mr-0" color='cyan' variant='solid'>Search</Button>} prefix={<SearchOutlined className='text-gray-400' />} />
                         </div>
@@ -162,7 +162,7 @@ const Userroless = () => {
                     </Flex> */}
                 </div>
 
-                <div className='mr-5 ml-20 mt-4 rounded-lg border border-gray-200 shadow-sm overflow-hidden'>
+                <div className='mr-5 ml-10 rounded-lg border border-gray-200 shadow-sm overflow-hidden'>
                     {/* <Table className='text-12-medium w-full'
                         dataSource={data}
                         columns={columns}

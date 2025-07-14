@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom';
 // import Userroless from './userroless';
 // import AnotherUser from './anotheruser';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserGear,faBed, faUserPlus, faFlask,faBriefcaseMedical } from '@fortawesome/free-solid-svg-icons';
+import { faUserGear,faBed, faUserPlus, faFlask,faBriefcaseMedical, faUserTie } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -49,6 +49,17 @@ const Dashboard = () => {
         {
             key: '2',
             label: 'Setup',
+            children: [
+                {
+                    key: '2-1',
+                    label: (
+                        <Link to="propscallback">
+                            ApiProp
+                        </Link>
+                    ),
+                },
+                
+            ],
         },
         {
             key: '3',
@@ -385,7 +396,7 @@ const Dashboard = () => {
                 </div>
                 <div className='m-2 p-5 flex items-center hover:shadow-md'>
                     <div className='md:flex m-0 p-0 xs:flex flex-row'>
-                        <div className='border border-[#bcb9b9] mr-1 p-2 w-[45px] h-[45px] flex items-center justify-center rounded font-medium text-[25px] text-green-600'>
+                        <div className='border border-[#bcb9b9] mr-1 p-2 w-[45px] h-[45px] flex items-center justify-center rounded font-medium text-[25px] text-green-700'>
                             <CalculatorOutlined />
                         </div>
                         <div className='inside-text'>
@@ -397,7 +408,7 @@ const Dashboard = () => {
                 <div className='m-2 p-5 flex items-center hover:shadow-md'>
                     <div className='md:flex m-0 p-0 xs:flex flex-row'>
                         <div className='border border-[#bcb9b9] mr-1 p-2 w-[45px] h-[45px] flex items-center justify-center rounded font-medium text-[25px] text-green-600'>
-                            <UserOutlined />
+                            <FontAwesomeIcon icon= {faUserTie}  style={{color: "#273959",}} />
                         </div>
                         <div className='inside-text'>
                             <h1 className='text-[#0f1b4a] font-semibold'>Agent Portal</h1>

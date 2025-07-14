@@ -6,8 +6,7 @@ import axios from "axios";
 const Apicruduse = () => {
     const [form] = Form.useForm();
     const [data, setData] = useState<any[]>([]);
-    const [editingIndex, setEditingIndex] = useState<number | null>(null);
-    const [editMode, setEditMode] = useState(false);
+    const [editingRecord, setEditingRecord] = useState<any>(null); // ← Track record object
 
     const api = axios.create({
         baseURL: "https://jsonplaceholder.typicode.com",
@@ -15,8 +14,7 @@ const Apicruduse = () => {
 
     // Fetch data
     useEffect(() => {
-        api
-            .get("/posts")
+        api.get("/posts")
             .then((res) => {
                 const formatted = res.data.slice(0, 10).map((post, index) => ({
                     key: post.id,
@@ -35,40 +33,53 @@ const Apicruduse = () => {
 
     const onSubmit = () => {
         form.validateFields().then((values) => {
-            const newData = {
-                key: editMode && editingIndex !== null ? data[editingIndex].key : Date.now(),
-                userId: values.userId,
-                title: values.title,
-                id: values.id,
-            };
-
-            if (editMode && editingIndex !== null) {
-                const updated = [...data];
-                updated[editingIndex] = newData;
-                setData(updated);
-                message.success("Updated successfully");
+            if (editingRecord) {
+                // Edit mode
+                const updatedData = data.map((item) =>
+                    item.id === editingRecord.id ? { ...editingRecord, ...values } : item
+                );
+                setData(updatedData);
+                message.success("User updated");
             } else {
-                setData(prev => [...prev, newData]);
-                message.success("Added successfully (simulated)");
+                // Add mode
+                const newUser = {
+                    ...values,
+                    id: Date.now(),
+                    key: Date.now(),
+                };
+                setData([...data, newUser]);
+                message.success("User added");
             }
 
             form.resetFields();
-            setEditMode(false);
-            setEditingIndex(null);
+            setEditingRecord(null);
         });
     };
 
-    const onEdit = (record: any, index: number) => {
+    const onEdit = (record: any) => {
         form.setFieldsValue(record);
-        setEditMode(true);
-        setEditingIndex(index);
+        setEditingRecord(record);
     };
 
-    const onDelete = (index: number) => {
-        const updated = [...data];
-        updated.splice(index, 1);
-        setData(updated);
-        message.success("Deleted successfully");
+    const onDelete = (recordId: number) => {
+        const isApiRecord = recordId <= 100;
+        if (isApiRecord) {
+            api.delete(`/posts/${recordId}`)
+                .then(() => {
+                    const updated = data.filter(item => item.id !== recordId);
+                    setData(updated);
+                    message.success("Deleted successfully");
+                })
+                .catch(err => {
+                    console.error("Delete failed:", err);
+                    message.error("Delete failed");
+                });
+        } else {
+            // Local delete only
+            const updated = data.filter(item => item.id !== recordId);
+            setData(updated);
+            message.success("Deleted local user");
+        }
     };
 
     const columns = [
@@ -77,18 +88,18 @@ const Apicruduse = () => {
         { title: "Title", dataIndex: "title", key: "title" },
         {
             title: "Actions",
-            render: (_: any, record: any, index: number) => (
-                <div>
-                    <EditOutlined onClick={() => onEdit(record, index)} />
+            render: (_: any, record: any) => (
+                <Space>
+                    <EditOutlined onClick={() => onEdit(record)} />
                     <Popconfirm
                         title="Are you sure to delete?"
-                        onConfirm={() => onDelete(index)}
+                        onConfirm={() => onDelete(record.id)}
                         okText="Yes"
                         cancelText="No"
                     >
                         <DeleteOutlined className="ml-4" />
                     </Popconfirm>
-                </div>
+                </Space>
             ),
         },
     ];
@@ -125,13 +136,12 @@ const Apicruduse = () => {
 
                     <div className="flex flex-row gap-2">
                         <Button type="primary" onClick={onSubmit}>
-                            {editMode ? "Update" : "Add"}
+                            {editingRecord ? "Update" : "Add"}
                         </Button>
-                        {editMode && (
+                        {editingRecord && (
                             <Button onClick={() => {
                                 form.resetFields();
-                                setEditMode(false);
-                                setEditingIndex(null);
+                                setEditingRecord(null);
                             }}>
                                 Cancel
                             </Button>
