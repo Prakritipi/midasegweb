@@ -8,7 +8,7 @@ import Apicruduse from './Components/UM_usersetup/Apicruduse';
 import Dashboard from './Components/Dashboard';
 import PropsCallback from './Components/UM_setup/PropsCallback';
 import AltLayout from './Components/UM_setup/AltLayout'; // New layout
-
+import Parentupdate from './Components/UM_setup/Parentupdate'; // Example component
 function App() {
   return (
     <Router>
@@ -26,9 +26,10 @@ function App() {
         </Route>
 
       
-        <Route path="/dashboard/propscallback" element={<AltLayout />}>
+        <Route path="/dashboard" element={<AltLayout />}>
           <Route index element={<PropsCallback />} />
           <Route path="propscallback" element={<PropsCallback />} />
+          <Route path="parentupdate" element={<Parentupdate />} />
         </Route>
 
         <Route path="*" element={<div>404 Not Found</div>} />

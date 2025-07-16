@@ -1,18 +1,36 @@
-import { Table, Button, Input, Space, message, Popconfirm, Form } from "antd";
 import { useState, useEffect } from "react";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import {
+    EditOutlined,
+    DeleteOutlined,
+    SearchOutlined,
+    HomeOutlined,
+    RightOutlined,
+    PlusCircleOutlined,
+} from "@ant-design/icons";
+import {
+    Table,
+    Button,
+    Input,
+    Flex,
+    Popconfirm,
+    Form,
+    message,
+    Modal,
+} from "antd";
 import axios from "axios";
+import NavsideBar from "./NavsideBar";
 
 const Apicruduse = () => {
     const [form] = Form.useForm();
     const [data, setData] = useState<any[]>([]);
-    const [editingRecord, setEditingRecord] = useState<any>(null); // ← Track record object
+    const [searchedText, setSearchedText] = useState("");
+    const [editingRecord, setEditingRecord] = useState<any>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const api = axios.create({
         baseURL: "https://jsonplaceholder.typicode.com",
     });
 
-    // Fetch data
     useEffect(() => {
         api.get("/posts")
             .then((res) => {
@@ -31,17 +49,46 @@ const Apicruduse = () => {
             });
     }, []);
 
-    const onSubmit = () => {
+    const handleAddClick = () => {
+        form.resetFields();
+        setEditingRecord(null);
+        setIsModalOpen(true);
+    };
+
+    const handleEdit = (record: any) => {
+        form.setFieldsValue(record);
+        setEditingRecord(record);
+        setIsModalOpen(true);
+    };
+
+    const handleDelete = (id: number) => {
+        const isApiRecord = id <= 100;
+        if (isApiRecord) {
+            api.delete(`/posts/${id}`)
+                .then(() => {
+                    const updated = data.filter((item) => item.id !== id);
+                    setData(updated);
+                    message.success("Deleted successfully");
+                })
+                .catch(() => {
+                    message.error("Failed to delete");
+                });
+        } else {
+            const updated = data.filter((item) => item.id !== id);
+            setData(updated);
+            message.success("Deleted local user");
+        }
+    };
+
+    const handleFormSubmit = () => {
         form.validateFields().then((values) => {
             if (editingRecord) {
-                // Edit mode
-                const updatedData = data.map((item) =>
+                const updated = data.map((item) =>
                     item.id === editingRecord.id ? { ...editingRecord, ...values } : item
                 );
-                setData(updatedData);
+                setData(updated);
                 message.success("User updated");
             } else {
-                // Add mode
                 const newUser = {
                     ...values,
                     id: Date.now(),
@@ -53,34 +100,15 @@ const Apicruduse = () => {
 
             form.resetFields();
             setEditingRecord(null);
+            setIsModalOpen(false);
         });
     };
 
-    const onEdit = (record: any) => {
-        form.setFieldsValue(record);
-        setEditingRecord(record);
-    };
-
-    const onDelete = (recordId: number) => {
-        const isApiRecord = recordId <= 100;
-        if (isApiRecord) {
-            api.delete(`/posts/${recordId}`)
-                .then(() => {
-                    const updated = data.filter(item => item.id !== recordId);
-                    setData(updated);
-                    message.success("Deleted successfully");
-                })
-                .catch(err => {
-                    console.error("Delete failed:", err);
-                    message.error("Delete failed");
-                });
-        } else {
-            // Local delete only
-            const updated = data.filter(item => item.id !== recordId);
-            setData(updated);
-            message.success("Deleted local user");
-        }
-    };
+    const filteredData = data.filter((item) =>
+        Object.values(item).some((field) =>
+            String(field).toLowerCase().startsWith(searchedText.toLowerCase())
+        )
+    );
 
     const columns = [
         { title: "ID", dataIndex: "id", key: "id" },
@@ -89,76 +117,90 @@ const Apicruduse = () => {
         {
             title: "Actions",
             render: (_: any, record: any) => (
-                <Space>
-                    <EditOutlined onClick={() => onEdit(record)} />
+                <div className="space-x-4">
+                    <EditOutlined
+                        style={{ color: "#1677ff" }}
+                        onClick={() => handleEdit(record)}
+                    />
                     <Popconfirm
-                        title="Are you sure to delete?"
-                        onConfirm={() => onDelete(record.id)}
-                        okText="Yes"
-                        cancelText="No"
+                        title="Are you sure you want to delete?"
+                        onConfirm={() => handleDelete(record.id)}
                     >
-                        <DeleteOutlined className="ml-4" />
+                        <DeleteOutlined style={{ color: "red" }} />
                     </Popconfirm>
-                </Space>
+                </div>
             ),
         },
     ];
 
     return (
-        <div className="p-6 max-w-5xl mx-auto">
-            <h1 className="text-xl font-semibold mb-4">API CRUD with AntD Table</h1>
+        <>
+            <NavsideBar />
 
-            <Form form={form} layout="horizontal">
-                <div className="flex flex-row gap-4 ">
-                    <div className="flex flex-row gap-4 items-end">
-                        <Form.Item
-                            name="id"
-                            label="ID"
-                            rules={[{ required: true, message: "Please enter ID" }]}
-                        >
-                            <Input placeholder="ID" />
-                        </Form.Item>
-                        <Form.Item
-                            name="title"
-                            label="Title"
-                            rules={[{ required: true, message: "Please enter Title" }]}
-                        >
-                            <Input placeholder="Title" />
-                        </Form.Item>
-                        <Form.Item
-                            name="userId"
-                            label="User ID"
-                            rules={[{ required: true, message: "Please enter User ID" }]}
-                        >
-                            <Input placeholder="User ID" />
-                        </Form.Item>
-                    </div>
+            {/* Breadcrumb */}
+            <div className="flex flex-row items-center space-x-1 font-semibold mt-2 ml-[70px]">
+                <HomeOutlined className="text-md" />
+                <RightOutlined className=" text-gray-400 text-xs " />
+                <span className=" text-gray-400 text-xs ">API Examples</span>
+                <RightOutlined className=" text-gray-400 text-xs " />
+                <span className=" text-gray-400 text-xs ">CRUD</span>
+            </div>
 
-                    <div className="flex flex-row gap-2">
-                        <Button type="primary" onClick={onSubmit}>
-                            {editingRecord ? "Update" : "Add"}
-                        </Button>
-                        {editingRecord && (
-                            <Button onClick={() => {
-                                form.resetFields();
-                                setEditingRecord(null);
-                            }}>
-                                Cancel
-                            </Button>
-                        )}
-                    </div>
-                </div>
-            </Form>
+            {/* Search + Add */}
+            <div className="flex justify-between mx-20 mt-4">
+                <Flex className="items-center" gap="small">
+                    <Input
+                        placeholder="Search posts"
+                        value={searchedText}
+                        onChange={(e) => setSearchedText(e.target.value)}
+                        prefix={<SearchOutlined className="text-gray-400" />}
+                        allowClear
+                    />
+                    <Button className="bg-cyan-500 text-white hover:bg-cyan-600">
+                        Search
+                    </Button>
+                </Flex>
+                <Button
+                    className="bg-cyan-500 text-white hover:bg-cyan-600"
+                    icon={<PlusCircleOutlined />}
+                    onClick={handleAddClick}
+                >
+                    Add
+                </Button>
+            </div>
 
-            <div className="mt-6">
+            {/* Table */}
+            <div className="mx-20 mt-4 rounded-lg border border-gray-200 shadow-sm overflow-hidden">
                 <Table
+                    className="text-12-medium w-full"
+                    dataSource={filteredData}
                     columns={columns}
-                    dataSource={data}
                     pagination={{ pageSize: 5 }}
                     rowKey="key"
                 />
             </div>
-        </div>
+
+            {/* Modal Form */}
+            <Modal
+                title={editingRecord ? "Edit Post" : "Add New Post"}
+                open={isModalOpen}
+                onCancel={() => setIsModalOpen(false)}
+                onOk={handleFormSubmit}
+                okText={editingRecord ? "Update" : "Add"}
+            >
+                <Form layout="vertical" form={form}>
+                    <Form.Item name="id" label="ID" rules={[{ required: true }]}>
+                        <Input placeholder="Enter ID" />
+                    </Form.Item>
+                    <Form.Item name="title" label="Title" rules={[{ required: true }]}>
+                        <Input placeholder="Enter title" />
+                    </Form.Item>
+                    <Form.Item name="userId" label="User ID" rules={[{ required: true }]}>
+                        <Input placeholder="Enter user ID" />
+                    </Form.Item>
+                </Form>
+            </Modal>
+        </>
     );
 };
 

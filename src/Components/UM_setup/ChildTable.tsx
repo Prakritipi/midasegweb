@@ -8,6 +8,7 @@ import {
     Form,
     message,
     Popconfirm,
+    Checkbox
 } from "antd";
 import {
     HomeOutlined,
@@ -18,7 +19,7 @@ import {
     DeleteOutlined,
 } from '@ant-design/icons';
 
-const ChildTable = ({data,onSelectedRowsChange }: {data: any[], onSelectedRowsChange: (rows: any[]) => void,}) => {
+const ChildTable = ({ data, onSelectedRowsChange }: { data: any[], onSelectedRowsChange: (rows: any[]) => void, }) => {
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
     const [searchedText, setSearchedText] = useState('');
     const [tableData, setTableData] = useState(data);
@@ -141,13 +142,15 @@ const ChildTable = ({data,onSelectedRowsChange }: {data: any[], onSelectedRowsCh
                         Search
                     </Button>
                 </Flex>
-                <Button
-                    className="bg-cyan-500 text-white hover:bg-cyan-600"
-                    icon={<PlusCircleOutlined />}
-                    onClick={() => showModal()}
-                >
-                    Add
-                </Button>
+                <Flex align="center" gap="middle">
+                    <Button
+                        className="bg-cyan-500 text-white hover:bg-cyan-600"
+                        icon={<PlusCircleOutlined />}
+                        onClick={() => showModal()}
+                    >
+                        Add
+                    </Button>
+                </Flex>
             </div>
 
             {/* Table */}
@@ -161,7 +164,7 @@ const ChildTable = ({data,onSelectedRowsChange }: {data: any[], onSelectedRowsCh
                 />
             </div>
 
-            {/* Modal for Add/Edit */} 
+            {/* Modal for Add/Edit */}
             <Modal
                 title={editingRecord ? "Edit User" : "Add User"}
                 open={isModalOpen}

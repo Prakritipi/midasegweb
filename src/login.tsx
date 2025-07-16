@@ -15,7 +15,7 @@ const Login: React.FC = () => {
             {/*left side*/}
             <div className='w-full md:w-[30%] bg-gradient-to-tl from-[#1f2a79] to-[#0f1b4a] text-white flex flex-col justify-between p-6'>
                 <div className='logo'>
-                    <img src='toplogo.png' alt='MIDAS Logo' className="w-[130px]" />
+                    <img src='./toplogo.png' alt='MIDAS Logo' className="w-[130px]" />
                 </div>
                 <div className='footer-text text-left w-full'>
                     <h3>Check The Status</h3>

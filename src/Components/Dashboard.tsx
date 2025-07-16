@@ -58,6 +58,14 @@ const Dashboard = () => {
                         </Link>
                     ),
                 },
+                {
+                    key: '2-2',
+                    label: (
+                        <Link to="parentupdate">
+                            Parent Update
+                        </Link>
+                    ),
+                },
                 
             ],
         },
