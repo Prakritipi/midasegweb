@@ -1,28 +1,37 @@
-// import React from 'react'
 import {
     RightOutlined,
     UserOutlined,
-    PlusOutlined,
     UserAddOutlined,
     SearchOutlined,
     MedicineBoxOutlined,
     CalculatorOutlined,
     SmileOutlined,
+    DownOutlined,
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { Dropdown } from 'antd';
-// import { Menu } from 'antd';
-import { Link } from 'react-router-dom';
-// import Usersetupuser from './usersetupuser';
-// import Userroless from './userroless';
-// import AnotherUser from './anotheruser';
+import { Dropdown, Menu } from 'antd';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserGear,faBed, faUserPlus, faFlask,faBriefcaseMedical, faUserTie } from '@fortawesome/free-solid-svg-icons';
-
-
-
+import { faUserGear, faBed, faUserPlus, faFlask, faBriefcaseMedical, faUserTie } from '@fortawesome/free-solid-svg-icons';
+import { useAuth } from './auth/AuthProvider';
 
 const Dashboard = () => {
+    const { logout } = useAuth();
+    const navigate = useNavigate(); 
+
+    const handleLogout = () => {
+        logout();              
+        navigate('/login'); 
+        navigate('/');   
+    };
+
+    const menu = (
+        <Menu>
+            <Menu.Item key="logout" onClick={handleLogout}>
+                Logout
+            </Menu.Item>
+        </Menu>
+    );
     const items: MenuProps['items'] = [
         {
             key: '1',
@@ -66,7 +75,7 @@ const Dashboard = () => {
                         </Link>
                     ),
                 },
-                
+
             ],
         },
         {
@@ -311,9 +320,17 @@ const Dashboard = () => {
                             />
                         </div>
 
-                        <button className='flex text-sm items-center text-black font-normal border border-black rounded-md mr-0 m-1 pr-6'>
-                            <UserOutlined className='mr-1 px-2' /> Superadmin
-                        </button>
+                        <div className="flex text-sm items-center text-black font-normal border border-black rounded-md mr-0 m-1 pr-6">
+                            <Dropdown overlay={menu} trigger={['click']}>
+                                <div className="cursor-pointer flex items-center space-x-2 hover:opacity-80">
+                                    <UserOutlined className='mr-1 px-2' />
+                                    <span>Superadmin</span>
+                                    <DownOutlined />
+                                </div>
+                            </Dropdown>
+                        </div>
+
+
                     </div>
                 </div>
 
@@ -333,7 +350,7 @@ const Dashboard = () => {
                 <div className='m-2 p-5 flex items-center hover:shadow-md'>
                     <div className='md:flex m-0 p-0 xs:flex flex-row'>
                         <div className='border border-[#e0dbdb] mr-1 p-2 w-[45px] h-[45px] flex items-center justify-center rounded font-medium text-[25px] text-green-600'>
-                                <FontAwesomeIcon icon={faUserGear} style={{ color: "#FFD43B" }} />                     </div>
+                            <FontAwesomeIcon icon={faUserGear} style={{ color: "#FFD43B" }} />                     </div>
                         <div className='inside-text'>
                             <h1 className='text-[#0f1b4a] font-semibold'>User Management </h1>
                             <Dropdown menu={{ items }} placement='topLeft' arrow>
@@ -347,7 +364,7 @@ const Dashboard = () => {
 
                     <div className='md:flex m-0 p-0 xs:flex flex-row'>
                         <div className='border border-[#bcb9b9] mr-1 p-2 w-[45px] h-[45px] flex items-center justify-center rounded font-medium text-[25px] text-green-600'>
-                            <FontAwesomeIcon icon= {faBed} style={{color: "#29477f",}} />
+                            <FontAwesomeIcon icon={faBed} style={{ color: "#29477f", }} />
                         </div>
                         <div className='inside-text'>
                             <h1 className='text-[#0f1b4a] font-semibold'>Admission And Discharge </h1>
@@ -363,7 +380,7 @@ const Dashboard = () => {
 
                     <div className='md:flex m-0 p-0 xs:flex flex-row'>
                         <div className='border border-[#bcb9b9] mr-1 p-2 w-[45px] h-[45px] flex items-center justify-center rounded font-medium text-[25px] text-green-600'>
-                            <FontAwesomeIcon icon= {faUserPlus} style={{color: "#509558"}} />
+                            <FontAwesomeIcon icon={faUserPlus} style={{ color: "#509558" }} />
                         </div>
                         <div className='inside-text'>
                             <h1 className='text-[#0f1b4a] font-semibold'>Patient Administration </h1>
@@ -378,7 +395,7 @@ const Dashboard = () => {
 
                     <div className='md:flex m-0 p-0 xs:flex flex-row'>
                         <div className='border border-[#bcb9b9] mr-1 p-2 w-[45px] h-[45px] flex items-center justify-center rounded font-medium text-[25px] text-green-600'>
-                            <FontAwesomeIcon icon={faFlask} style={{color: "#74C0FC",}} />
+                            <FontAwesomeIcon icon={faFlask} style={{ color: "#74C0FC", }} />
                         </div>
                         <div className='inside-text'>
                             <h1 className='text-[#0f1b4a] font-semibold'>Investigation </h1>
@@ -392,7 +409,7 @@ const Dashboard = () => {
                 <div className='m-2 p-5 flex items-center hover:shadow-md'>
                     <div className='md:flex m-0 p-0 xs:flex flex-row'>
                         <div className='border border-[#bcb9b9] mr-1 p-2 w-[45px] h-[45px] flex items-center justify-center rounded font-medium text-[25px] text-green-600'>
-                            <FontAwesomeIcon icon= {faBriefcaseMedical}  style={{color: "#6cb3ea",}} />
+                            <FontAwesomeIcon icon={faBriefcaseMedical} style={{ color: "#6cb3ea", }} />
                         </div>
                         <div className='inside-text'>
                             <h1 className='text-[#0f1b4a] font-semibold'>Pharmacy</h1>
@@ -416,7 +433,7 @@ const Dashboard = () => {
                 <div className='m-2 p-5 flex items-center hover:shadow-md'>
                     <div className='md:flex m-0 p-0 xs:flex flex-row'>
                         <div className='border border-[#bcb9b9] mr-1 p-2 w-[45px] h-[45px] flex items-center justify-center rounded font-medium text-[25px] text-green-600'>
-                            <FontAwesomeIcon icon= {faUserTie}  style={{color: "#273959",}} />
+                            <FontAwesomeIcon icon={faUserTie} style={{ color: "#273959", }} />
                         </div>
                         <div className='inside-text'>
                             <h1 className='text-[#0f1b4a] font-semibold'>Agent Portal</h1>
