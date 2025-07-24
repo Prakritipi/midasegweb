@@ -2,8 +2,8 @@ import React from 'react';
 
 const Childupdate = ({ data, onUpdate }) => {
   const handleChangeLabel = (id: React.Key | null | undefined) => {
-    const updatedData = data.map(item =>
-      item.id === id ? { ...item, label: "Added!!!" } : item
+    const updatedData = data.map((item: { id: React.Key | null | undefined; }) =>
+      item.id === id ? { ...item, label: "items added!!!" } : item
     );
     onUpdate(updatedData); 
   };
@@ -16,7 +16,7 @@ const Childupdate = ({ data, onUpdate }) => {
           <li key={item.id}>
             {item.name} - {item.label}
             <button onClick={() => handleChangeLabel(item.id)} style={{ marginLeft: "10px" }}>
-              Change Label
+              items
             </button>
           </li>
         ))}

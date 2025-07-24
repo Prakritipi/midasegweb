@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Menu, Tooltip, Drawer, Button } from 'antd';
 import {
     UsergroupAddOutlined,
@@ -10,7 +10,6 @@ import {
     RightOutlined,
 } from '@ant-design/icons';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
-import { layer } from '@fortawesome/fontawesome-svg-core';
 
 const text = <span>Audit Logs</span>;
 

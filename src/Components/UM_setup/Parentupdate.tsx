@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Breadcrumb } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import { HomeOutlined, RightOutlined } from '@ant-design/icons';
 import Childpath from './Childupdate';
 
