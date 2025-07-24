@@ -8,7 +8,8 @@ import {
     Form,
     message,
     Popconfirm,
-    Checkbox
+    Checkbox,
+    Breadcrumb
 } from "antd";
 import {
     HomeOutlined,
@@ -18,8 +19,11 @@ import {
     EditOutlined,
     DeleteOutlined,
 } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 
 const ChildTable = ({ data, onSelectedRowsChange }: { data: any[], onSelectedRowsChange: (rows: any[]) => void, }) => {
+    const navigate = useNavigate();
+
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
     const [searchedText, setSearchedText] = useState('');
     const [tableData, setTableData] = useState(data);
@@ -27,14 +31,12 @@ const ChildTable = ({ data, onSelectedRowsChange }: { data: any[], onSelectedRow
     const [editingRecord, setEditingRecord] = useState<any>(null);
     const [form] = Form.useForm();
 
-    // Filter table data by search
     const filteredData = tableData.filter((item) =>
         Object.values(item).some((value) =>
             String(value).toLowerCase().startsWith(searchedText.toLowerCase())
         )
     );
 
-    // Row selection logic
     const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
         setSelectedRowKeys(newSelectedRowKeys);
         const selectedRows = tableData.filter((item) =>
@@ -114,18 +116,39 @@ const ChildTable = ({ data, onSelectedRowsChange }: { data: any[], onSelectedRow
 
     return (
         <>
-            {/* Breadcrumb */}
-            <div className="flex flex-row items-center space-x-1 font-semibold mt-2 ml-[70px]">
-                <HomeOutlined className="text-md" />
-                <RightOutlined className="text-gray-400 text-xs" />
-                <span className="text-gray-400 text-xs">DashBoard</span>
-                <RightOutlined className="text-gray-400 text-xs" />
-                <span className="text-gray-400 text-xs">Setup</span>
-                <RightOutlined className="text-gray-400 text-xs" />
-                <span className="text-gray-400 text-xs">ApiProp</span>
+            <div className="ml-9 mt-4 mb-3 font-semibold text-xs">
+                <Breadcrumb
+                    separator={<RightOutlined className="text-gray-400 text-xs" />}
+                    items={[
+                        {
+                            title: (
+                                <HomeOutlined
+                                    className="cursor-pointer"
+                                    onClick={() => navigate('/dashboard')}
+                                />
+                            ),
+                        },
+                        {
+                            title: (
+                                <span
+                                    className="text-gray-400 cursor-pointer"
+                                >
+                                    Setup
+                                </span>
+                            ),
+                        },
+                        {
+                            title: (
+                                <span 
+                                    className="text-gray-400">
+                                    ApiProps
+                                </span>
+                            ),
+                        },
+                    ]}
+                />
             </div>
 
-            {/* Search and Add */}
             <div className="flex justify-between mx-20 mt-4">
                 <Flex className="items-center" gap="small">
                     <Input
@@ -164,7 +187,6 @@ const ChildTable = ({ data, onSelectedRowsChange }: { data: any[], onSelectedRow
                 />
             </div>
 
-            {/* Modal for Add/Edit */}
             <Modal
                 title={editingRecord ? "Edit User" : "Add User"}
                 open={isModalOpen}

@@ -16,11 +16,15 @@ import {
     Form,
     message,
     Modal,
+    Breadcrumb,
 } from "antd";
 import axios from "axios";
 import NavsideBar from "./NavsideBar";
+import { useNavigate } from 'react-router-dom';
 
 const Apicruduse = () => {
+    const navigate = useNavigate();
+
     const [form] = Form.useForm();
     const [data, setData] = useState<any[]>([]);
     const [searchedText, setSearchedText] = useState("");
@@ -137,13 +141,39 @@ const Apicruduse = () => {
         <>
             <NavsideBar />
 
-            {/* Breadcrumb */}
-            <div className="flex flex-row items-center space-x-1 font-semibold mt-2 ml-[70px]">
-                <HomeOutlined className="text-md" />
-                <RightOutlined className=" text-gray-400 text-xs " />
-                <span className=" text-gray-400 text-xs ">API Examples</span>
-                <RightOutlined className=" text-gray-400 text-xs " />
-                <span className=" text-gray-400 text-xs ">CRUD</span>
+            <div className="ml-9 mt-4 mb-3 font-semibold text-xs">
+                <Breadcrumb
+                    separator={<RightOutlined className="text-gray-400 text-xs" />}
+                    items={[
+                        {
+                            title: (
+                                <HomeOutlined
+                                    className="cursor-pointer"
+                                    onClick={() => navigate('/dashboard')}
+                                />
+                            ),
+                        },
+                        {
+                            title: (
+                                <span
+                                    className="text-gray-400 cursor-pointer"
+                                >
+                                    Api Examples
+                                </span>
+                            ),
+                        },
+                        {
+                            title: (
+                                <span
+                                    className="text-gray-400 cursor-pointer"
+                                    onClick={() => navigate('/dashboard/apicruduse')}
+                                >
+                                    CRUD
+                                </span>
+                            ),
+                        },
+                    ]}
+                />
             </div>
 
             {/* Search + Add */}

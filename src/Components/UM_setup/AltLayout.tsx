@@ -78,7 +78,6 @@ const AltLayout = () => {
                         </Link>
                     </div>
 
-                    {/* Search Box */}
                     <div className="relative w-96">
                         <span className="absolute inset-y-0 left-2 flex items-center text-gray-400">
                             <SearchOutlined />
@@ -90,17 +89,14 @@ const AltLayout = () => {
                         />
                     </div>
 
-                    {/* User Button */}
                     <button className='flex text-sm items-center text-black font-normal border border-black rounded-md mr-0 m-1 pr-6'>
                         <UserOutlined className='mr-1 px-2' /> Superadmin
                     </button>
                 </div>
             </div>
 
-            {/* Sidebar */}
             <div className='fixed bg-white top-14 left-0 h-screen p-0 m-0 z-50 border-r-2 border-gray-100'>
                 <div className='flex flex-col items-start space-y-1'>
-                   {/* Sidebar menu */}
                     <Menu
                         style={{ width: 50 }}
                         mode="vertical"
@@ -118,7 +114,6 @@ const AltLayout = () => {
                     />
             </div>
 
-            {/* Drawer Component */}
             <Drawer
                 className=" radius-3xl  "
                 title="Sidebar Drawer"
@@ -140,7 +135,6 @@ const AltLayout = () => {
                 />
             </Drawer>
 
-            {/* Main Content */}
             <div className=' mt-8 p-4'>
                 <Outlet />
             </div>

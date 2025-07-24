@@ -1,28 +1,28 @@
 import React from 'react';
 
-
-
-function Childupdate({ data, onUpdate }) {
-  const changeText = (id) => {
-    const newData = data.map(item =>
+const Childupdate = ({ data, onUpdate }) => {
+  const handleChangeLabel = (id: React.Key | null | undefined) => {
+    const updatedData = data.map(item =>
       item.id === id ? { ...item, label: "Added!!!" } : item
     );
-    onUpdate(newData); // send updated array to parent
+    onUpdate(updatedData); 
   };
 
   return (
     <div>
       <h3>Child Component</h3>
       <ul>
-        {data.map(item => (
+        {data.map((item: { id: React.Key | null | undefined; name: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; label: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; }) => (
           <li key={item.id}>
-            {item.name} - {item.label}{" "}
-            <button onClick={() => changeText(item.id)}>Items</button>
+            {item.name} - {item.label}
+            <button onClick={() => handleChangeLabel(item.id)} style={{ marginLeft: "10px" }}>
+              Change Label
+            </button>
           </li>
         ))}
       </ul>
     </div>
   );
-}
+};
 
 export default Childupdate;

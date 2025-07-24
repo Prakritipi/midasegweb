@@ -16,18 +16,21 @@ import {
     Form,
     message,
     Modal,
+    Breadcrumb,
 } from 'antd';
 import NavsideBar from './NavsideBar';
 import { dataSource } from './data';
+import { useNavigate } from 'react-router-dom';
 
 const Usersetupuser = () => {
+    const navigate = useNavigate();
+
     const [data, setData] = useState(dataSource);
     const [searchedText, setSearchedText] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingRecord, setEditingRecord] = useState<any>(null);
     const [form] = Form.useForm();
 
-    // Filtered data
     const filteredData = data.filter((item) =>
         Object.values(item).some((field) =>
             String(field).toLowerCase().startsWith(searchedText.toLowerCase())
@@ -55,14 +58,12 @@ const Usersetupuser = () => {
     const handleFormSubmit = () => {
         form.validateFields().then((values) => {
             if (editingRecord) {
-                // Edit mode
                 const updated = data.map((item) =>
                     item.id === editingRecord.id ? { ...editingRecord, ...values } : item
                 );
                 setData(updated);
                 message.success('User updated');
             } else {
-                // Add mode
                 const newUser = {
                     ...values,
                     id: Date.now(),
@@ -122,18 +123,42 @@ const Usersetupuser = () => {
         <>
             <NavsideBar />
 
-            {/* Breadcrumb */}
-            <div className="flex flex-row items-center space-x-1 font-semibold mt-2 ml-[70px]">
-                <HomeOutlined className="text-md" />
-                <RightOutlined className=" text-gray-400 text-xs " />
-                <span className=" text-gray-400 text-xs ">User Management</span>
-                <RightOutlined className=" text-gray-400 text-xs " />
-                <span className=" text-gray-400 text-xs ">User Setup</span>
-                <RightOutlined className="text-xs text-gray-400 " />
-                <span className=" text-gray-400 text-xs ">User</span>
+            <div className="ml-9 mt-4 mb-3 font-semibold text-xs">
+                <Breadcrumb
+                    separator={<RightOutlined className="text-gray-400 text-xs" />}
+                    items={[
+                        {
+                            title: (
+                                <HomeOutlined
+                                    className="cursor-pointer"
+                                    onClick={() => navigate('/dashboard')}
+                                />
+                            ),
+                        },
+                        {
+                            title: (
+                                <span
+                                    className="text-gray-400 cursor-pointer"
+                                    onClick={() => navigate('/dashboard')}
+                                >
+                                    User Management
+                                </span>
+                            ),
+                        },
+                        {
+                            title: (
+                                <span
+                                    className="text-gray-400 cursor-pointer"
+                                    onClick={() => navigate('/dashboard/usersetupuser')}
+                                >
+                                    User 
+                                </span>
+                            ),
+                        },
+                    ]}
+                />
             </div>
 
-            {/* Search + Add */}
             <div className="flex justify-between mx-20 mt-4">
                 <Flex className="items-center" gap="small">
                     <Input

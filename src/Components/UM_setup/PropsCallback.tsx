@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, {useEffect} from 'react'
 import axios from "axios";
-import { message, Spin } from "antd";
+import { Spin } from "antd";
 import ChildTable from './ChildTable'; 
 
 const PropsCallback = () => {
@@ -15,7 +15,7 @@ const PropsCallback = () => {
         axios
             .get('https://jsonplaceholder.typicode.com/users')
             .then((res) => {
-                const formatted = res.data.slice(0, 10).map((users, index) => ({
+                const formatted = res.data.slice(0, 10).map((users: { id: any; name: any; email: any; company: { name: any; }; }, index: any) => ({
                     key: index,
                     userId: users.id,
                     name: users.name,

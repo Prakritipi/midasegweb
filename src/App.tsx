@@ -31,7 +31,7 @@ function App() {
             <Route path="userroless" element={<Userroless />} />
             <Route path="usersetupuser/apiCall" element={<ApiCall />} />
             <Route path="apicruduse" element={<Apicruduse />} />
-            <Route path="apicall" element={<ApiCall />} />
+            <Route path="ApiCall" element={<ApiCall />} />
           </Route>
 
           <Route path="/dashboard" element={
@@ -39,7 +39,7 @@ function App() {
               <AltLayout />
             </PrivateRoute>
           }>
-            <Route index element={<PropsCallback />} />
+            <Route index element={<Dashboard/>} />
             <Route path="propscallback" element={<PropsCallback />} />
             <Route path="parentupdate" element={<Parentupdate />} />
           </Route>

@@ -9,10 +9,13 @@ import {
   message,
   Modal,
   Form,
+  Breadcrumb,
 } from "antd";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { fetchUsers } from "./api"; 
+import { fetchUsers } from "./api";
+import { useNavigate } from 'react-router-dom';
+
 
 import {
   EditOutlined,
@@ -23,6 +26,8 @@ import {
 } from "@ant-design/icons";
 
 const ApiCall = () => {
+  const navigate = useNavigate();
+
   const [searchText, setSearchText] = React.useState("");
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
@@ -151,15 +156,39 @@ const ApiCall = () => {
 
   return (
     <>
-      {/* Breadcrumb */}
-      <div className="flex flex-row items-center space-x-1 font-semibold mt-2 ml-5 mb-4">
-        <HomeOutlined className="text-md" />
-        <RightOutlined className=" text-gray-400 text-xs " />
-        <span className=" text-gray-400 text-xs ">User Management</span>
-        <RightOutlined className=" text-gray-400 text-xs " />
-        <span className=" text-gray-400 text-xs ">User Setup</span>
-        <RightOutlined className="text-xs text-gray-400 " />
-        <span className=" text-gray-400 text-xs ">User</span>
+      <div className="ml-9 mt-4 mb-3 font-semibold text-xs">
+        <Breadcrumb
+          separator={<RightOutlined className="text-gray-400 text-xs" />}
+          items={[
+            {
+              title: (
+                <HomeOutlined
+                  className="cursor-pointer"
+                  onClick={() => navigate('/dashboard')}
+                />
+              ),
+            },
+            {
+              title: (
+                <span
+                  className="text-gray-400 cursor-pointer"
+                >
+                  Api Examples
+                </span>
+              ),
+            },
+            {
+              title: (
+                <span
+                  className="text-gray-400 cursor-pointer"
+                  onClick={() => navigate('/dashboard/ApiCall')}
+                >
+                  Api Call
+                </span>
+              ),
+            },
+          ]}
+        />
       </div>
 
       <div className="w-full flex flex-row justify-between">
