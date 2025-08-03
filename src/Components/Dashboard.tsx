@@ -62,7 +62,7 @@ const Dashboard = () => {
                 {
                     key: '2-1',
                     label: (
-                        <Link to="propscallback">
+                        <Link to="/setup/propscallback">
                             ApiProp
                         </Link>
                     ),
@@ -70,7 +70,7 @@ const Dashboard = () => {
                 {
                     key: '2-2',
                     label: (
-                        <Link to="parentupdate">
+                        <Link to="/setup/parentupdate">
                             Parent Update
                         </Link>
                     ),
@@ -174,9 +174,9 @@ const Dashboard = () => {
         {
             key: '1',
             label: (
-                <a target='_blank' rel='noopener noreferrer' href='https://example.com/profile' className='flex justify-between'>
-                    Dashboard
-                </a>
+                <Link to="/setup/purchaseReturn" className="flex justify-between">
+                Inventory <RightOutlined className="ml-2" />
+                </Link>
             ),
         },
         {

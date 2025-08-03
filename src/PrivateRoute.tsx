@@ -4,13 +4,12 @@ import { useAuth } from './Components/auth/AuthProvider';
 
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
     const { isAuthenticated } = useAuth();
-    const localAuth = localStorage.getItem("isAuthenticated") === "true";
 
-    return isAuthenticated || localAuth ? (
-        <>{children}</>
-    ) : (
-        <Navigate to="/login" />
-    );
+    if (!isAuthenticated) {
+        return <Navigate to="/login" replace />;
+    }
+
+    return <>{children}</>;
 };
 
 export default PrivateRoute;

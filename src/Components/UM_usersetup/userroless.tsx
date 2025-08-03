@@ -58,7 +58,6 @@ const Userroless = () => {
 
     return (
         <>
-            <NavsideBar />
 
             <div className="ml-9 mt-4 mb-3 font-semibold text-xs">
                 <Breadcrumb

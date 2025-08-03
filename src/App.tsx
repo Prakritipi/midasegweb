@@ -1,4 +1,3 @@
-// src/App.tsx
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from './login';
 import PageLayout from './Components/UM_usersetup/PageLayout';
@@ -12,6 +11,7 @@ import AltLayout from './Components/UM_setup/AltLayout';
 import Parentupdate from './Components/UM_setup/Parentupdate';
 import PrivateRoute from './PrivateRoute';
 import { AuthProvider } from './Components/auth/AuthProvider';
+import PurchaseReturn from "./Components/Investigation/PurchaseReturn/index";
 
 function App() {
   return (
@@ -20,6 +20,12 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
+
+          <Route path="/dashboard" element={
+            <PrivateRoute>
+              <Dashboard /> {/* No sidebar layout here */}
+            </PrivateRoute>
+          } />
 
           <Route path="/dashboard" element={
             <PrivateRoute>
@@ -34,18 +40,18 @@ function App() {
             <Route path="ApiCall" element={<ApiCall />} />
           </Route>
 
-          <Route path="/dashboard" element={
+          <Route path="/setup" element={
             <PrivateRoute>
               <AltLayout />
             </PrivateRoute>
           }>
-            <Route index element={<Dashboard/>} />
+            <Route index element={<Dashboard />} />
             <Route path="propscallback" element={<PropsCallback />} />
             <Route path="parentupdate" element={<Parentupdate />} />
+            <Route path="purchaseReturn" element={<PurchaseReturn />} />
           </Route>
 
-          {/* Catch-all for 404 */}
-          <Route path="*" element={<div>404 Not Found</div>} />
+          <Route path="*" element={<div className="text-center text-red-500 text-xl mt-10">404 - Page Not Found</div>} />
         </Routes>
       </Router>
     </AuthProvider>

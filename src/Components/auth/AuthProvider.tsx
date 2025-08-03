@@ -1,5 +1,5 @@
-// AuthProvider.tsx
 import React, { createContext, useContext, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 const AuthContext = createContext<any>(null);

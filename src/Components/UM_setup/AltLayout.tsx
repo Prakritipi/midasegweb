@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Menu, Tooltip, Drawer, Button } from 'antd';
+import { Dropdown, Menu, Tooltip, Drawer, Button } from 'antd';
 import {
     UsergroupAddOutlined,
+    DownOutlined,
     SettingOutlined,
     AuditOutlined,
     SearchOutlined,
@@ -10,12 +11,22 @@ import {
     RightOutlined,
 } from '@ant-design/icons';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { useAuth } from "../auth/AuthProvider";
 
 const text = <span>Audit Logs</span>;
 
 const AltLayout = () => {
+    const { logout } = useAuth();
     const navigate = useNavigate();
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+    const menu = (
+        <Menu>
+            <Menu.Item key="logout" onClick={logout}>
+                Logout
+            </Menu.Item>
+        </Menu>
+    );
 
     const showDrawer = () => setIsDrawerOpen(true);
     const closeDrawer = () => setIsDrawerOpen(false);
@@ -63,10 +74,8 @@ const AltLayout = () => {
 
     return (
         <div>
-            {/* Top Navbar */}
             <div className='fixed bg-white top-0 left-0 w-full m-0 p-2 z-50 border-b-2 border-gray-300'>
                 <div className='w-full flex flex-row justify-between p-0 m-0'>
-                    {/* Logo - clickable */}
                     <div className='logo items-start'>
                         <Link to="/dashboard">
                             <img
@@ -88,9 +97,12 @@ const AltLayout = () => {
                         />
                     </div>
 
-                    <button className='flex text-sm items-center text-black font-normal border border-black rounded-md mr-0 m-1 pr-6'>
-                        <UserOutlined className='mr-1 px-2' /> Superadmin
-                    </button>
+
+                    <Dropdown overlay={menu} trigger={['click']}>
+                        <Button type="text" className="flex text-sm items-center text-black font-normal border border-black rounded-md mr-0 m-1 pr-6">
+                            <UserOutlined className='mr-1 px-2' />Superadmin <DownOutlined />
+                        </Button>
+                    </Dropdown>
                 </div>
             </div>
 
@@ -106,11 +118,11 @@ const AltLayout = () => {
 
 
                 <Button
-                        type="text"
-                        icon={<RightOutlined style={{ fontSize: 20, color:'white', background: '#0ABAB5'}} />}
-                        onClick={showDrawer}
-                        className="mx-4 my-2 rounded-3xl bg-cyan-500 text-white"
-                    />
+                    type="text"
+                    icon={<RightOutlined style={{ fontSize: 20, color: 'white', background: '#0ABAB5' }} />}
+                    onClick={showDrawer}
+                    className="mx-4 my-2 rounded-3xl bg-cyan-500 text-white"
+                />
             </div>
 
             <Drawer
