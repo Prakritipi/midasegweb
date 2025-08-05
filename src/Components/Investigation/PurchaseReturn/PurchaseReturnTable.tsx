@@ -15,7 +15,9 @@ const PurchaseReturnTable: React.FC<Props> = ({ items, onEdit, onDelete }) => {
         { title: "Rate", dataIndex: "rate" },
         { title: "Amount", dataIndex: "amount" },
         { title: "Disc. %", dataIndex: "discountPercent" },
-        { title: "Disc. Amt", dataIndex: "discountAmt" },
+        { title: "Discount Amt", dataIndex: "discountAmt" },     // ✅ add if available
+        { title: "VAT %", dataIndex: "vatPercent" },
+        { title: "VAT Amt", dataIndex: "vatAmt" },               // ✅ add if available
         { title: "Total", dataIndex: "total" },
         {
             title: "Actions",
@@ -38,7 +40,14 @@ const PurchaseReturnTable: React.FC<Props> = ({ items, onEdit, onDelete }) => {
         },
     ];
 
-    return <Table columns={columns} dataSource={items} rowKey="itemName" pagination={false} />;
+    return (
+        <Table
+            columns={columns}
+            dataSource={items}
+            rowKey={(record) => record.itemName + record.qty} // ✅ safer key
+            pagination={false}
+        />
+    );
 };
 
 export default PurchaseReturnTable;

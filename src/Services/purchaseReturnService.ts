@@ -5,5 +5,9 @@ const API = axios.create({
 });
 
 export const fetchPurchaseReturns = () => API.get("/purchase-returns");
-export const createPurchaseReturn = (data: any) => API.post("/purchase-returns", data);
-export const deletePurchaseReturn = (id: string) => API.delete(`/purchase-returns/${id}`);
+
+export const createPurchaseReturn = (data: any) =>
+    API.post("/purchase-returns", data);
+
+export const deletePurchaseReturn = (id: string) =>
+    API.delete(`/purchase-returns/${id}`);
