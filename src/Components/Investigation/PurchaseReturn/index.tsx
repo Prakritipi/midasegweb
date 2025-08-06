@@ -12,45 +12,58 @@ import {
 import {
     fetchPurchaseReturns,
     createPurchaseReturn,
+    updatePurchaseReturn,
     deletePurchaseReturn,
 } from "Services/purchaseReturnService";
 
 const PurchaseReturn: React.FC = () => {
     const queryClient = useQueryClient();
 
-    // State
+    // Local state for form and calculations
     const [items, setItems] = useState<any[]>([]);
     const [editingIndex, setEditingIndex] = useState<number | null>(null);
     const [vatPercent, setVatPercent] = useState<number>(0);
 
-    // Fetch purchase returns (optional - not used here directly)
-    useQuery({
+    // Fetching purchase returns from API (not yet used in UI)
+    const { data: purchaseReturns = [] } = useQuery({
         queryKey: ["purchaseReturns"],
         queryFn: fetchPurchaseReturns,
     });
 
-    // Mutations (optional - not used in this component directly)
-    const addMutation = useMutation({
+    // Mutations
+    const createMutation = useMutation({
         mutationFn: createPurchaseReturn,
-        onSuccess: () =>
-            queryClient.invalidateQueries({ queryKey: ["purchaseReturns"] }),
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ["purchaseReturns"] }),
+    });
+
+    const updateMutation = useMutation({
+        mutationFn: ({ id, data }: { id: string; data: any }) =>
+            updatePurchaseReturn(id, data),
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ["purchaseReturns"] }),
     });
 
     const deleteMutation = useMutation({
         mutationFn: deletePurchaseReturn,
-        onSuccess: () =>
-            queryClient.invalidateQueries({ queryKey: ["purchaseReturns"] }),
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ["purchaseReturns"] }),
     });
 
-    // Handlers
+    // Add or update item in table
     const addItem = (item: any) => {
         if (editingIndex !== null) {
             const updated = [...items];
             updated[editingIndex] = item;
             setItems(updated);
             setEditingIndex(null);
+
+            if (item.id) {
+                updateMutation.mutate({
+                    id: item.id,
+                    data: item,
+                });
+            }
         } else {
             setItems([...items, item]);
+            createMutation.mutate(item);
         }
     };
 
@@ -59,6 +72,11 @@ const PurchaseReturn: React.FC = () => {
     };
 
     const deleteItem = (index: number) => {
+        const itemToDelete = items[index];
+        if (itemToDelete.id) {
+            deleteMutation.mutate(itemToDelete.id);
+        }
+
         setItems(items.filter((_, i) => i !== index));
     };
 
@@ -80,6 +98,7 @@ const PurchaseReturn: React.FC = () => {
                                     editingItem={items[editingIndex ?? -1]}
                                     vatPercent={vatPercent}
                                     disabled={vatPercent === 0}
+                                    onSubmitToAPI={(data) => createMutation.mutate(data)}
                                 />
                                 <PurchaseReturnTable
                                     items={items}

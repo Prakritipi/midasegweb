@@ -7,6 +7,7 @@ interface Props {
     editingItem?: any;
     vatPercent: number;
     disabled: boolean;
+    onSubmitToAPI: (data: any) => void;
 }
 
 const ItemEntryForm: React.FC<Props> = ({ onAdd, editingItem, vatPercent, disabled }) => {
@@ -48,6 +49,15 @@ const ItemEntryForm: React.FC<Props> = ({ onAdd, editingItem, vatPercent, disabl
         const vat = (taxable * vatPercent) / 100;
         const finalTotal = taxable + vat;
 
+        const newItem = {
+            ...values,
+            amount,
+            discountAmt: discAmt,
+            vatPercent,
+            vatAmt: vat,
+            total: finalTotal,
+        };
+
         onAdd({
             ...values,
             amount,
@@ -56,6 +66,8 @@ const ItemEntryForm: React.FC<Props> = ({ onAdd, editingItem, vatPercent, disabl
             vatAmt: vat,
             total: finalTotal,
         });
+
+        onSubmitToAPI(newItem);
 
         form.resetFields();
         setDiscountAmt(0);
@@ -71,7 +83,7 @@ const ItemEntryForm: React.FC<Props> = ({ onAdd, editingItem, vatPercent, disabl
             onValuesChange={updateAmounts}
         >
             <Form.Item name="itemName" rules={[{ required: true }]}>
-                <Input placeholder="Item Name" disabled={disabled}/>
+                <Input placeholder="Item Name" disabled={disabled} />
             </Form.Item>
 
             <Form.Item name="qty" rules={[{ required: true }]}>
@@ -83,7 +95,7 @@ const ItemEntryForm: React.FC<Props> = ({ onAdd, editingItem, vatPercent, disabl
             </Form.Item>
 
             <Form.Item name="discountPercent" initialValue={0}>
-                <InputNumber placeholder="Disc. %" disabled={disabled}/>
+                <InputNumber placeholder="Disc. %" disabled={disabled} />
             </Form.Item>
 
             <Form.Item label="Discount Amt">
@@ -91,7 +103,7 @@ const ItemEntryForm: React.FC<Props> = ({ onAdd, editingItem, vatPercent, disabl
             </Form.Item>
 
             <Form.Item label="VAT %" tooltip="Auto-filled from supplier">
-                <InputNumber value={vatPercent} readOnly/>
+                <InputNumber value={vatPercent} readOnly />
             </Form.Item>
 
             <Form.Item label="VAT Amt">
@@ -106,15 +118,19 @@ const ItemEntryForm: React.FC<Props> = ({ onAdd, editingItem, vatPercent, disabl
                 {editingItem ? "Update" : "Add"}
             </Button>
 
-            <Button icon={<ClearOutlined />} 
-            onClick={() => {
-                form.resetFields();
-                setDiscountAmt(0);
-                setVatAmt(0);
-                setTotal(0);        
+            <Button icon={<ClearOutlined />}
+                onClick={() => {
+                    form.resetFields();
+                    setDiscountAmt(0);
+                    setVatAmt(0);
+                    setTotal(0);
                 }} />
         </Form>
     );
 };
 
 export default ItemEntryForm;
+function onSubmitToAPI(newItem: any) {
+    throw new Error("Function not implemented.");
+}
+

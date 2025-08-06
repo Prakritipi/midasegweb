@@ -15,9 +15,9 @@ const PurchaseReturnTable: React.FC<Props> = ({ items, onEdit, onDelete }) => {
         { title: "Rate", dataIndex: "rate" },
         { title: "Amount", dataIndex: "amount" },
         { title: "Disc. %", dataIndex: "discountPercent" },
-        { title: "Discount Amt", dataIndex: "discountAmt" },     // ✅ add if available
+        { title: "Discount Amt", dataIndex: "discountAmt" },     
         { title: "VAT %", dataIndex: "vatPercent" },
-        { title: "VAT Amt", dataIndex: "vatAmt" },               // ✅ add if available
+        { title: "VAT Amt", dataIndex: "vatAmt" },             
         { title: "Total", dataIndex: "total" },
         {
             title: "Actions",
